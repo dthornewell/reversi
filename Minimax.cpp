@@ -10,9 +10,6 @@ int minValue(GameBoard* oldBoard, int player, int alpha, int beta, int depth, in
 	time_t now;
 	time(&now);
 
-	if (depth == maxDepth || difftime(now, startingTime) >= COMPUTING_TIME || !(oldBoard->canMove(-player))) {
-		return oldBoard->evaluateBoard(player);
-	}
 	if (oldBoard->fullGame() || (!(oldBoard->canMove(player)) && !(oldBoard->canMove(-player)))) {
 		int score = oldBoard->scoreBoard(player);
 		int score2 = oldBoard->scoreBoard(-player);
@@ -25,6 +22,10 @@ int minValue(GameBoard* oldBoard, int player, int alpha, int beta, int depth, in
 		else {
 			return -MAX_NUMBER;
 		}
+	}
+
+	if (depth == maxDepth || difftime(now, startingTime) >= COMPUTING_TIME || !(oldBoard->canMove(-player))) {
+		return oldBoard->evaluateBoard(player);
 	}
 
 	for (int i = 0; i < 8; i++) {
@@ -60,10 +61,7 @@ int maxValue(GameBoard* oldBoard, int player, int alpha, int beta, int depth, in
 	//Stops when gets to maxDepth or when game is over
 	time_t now;
 	time(&now);
-	//A limit on turns otherwise the starting game takes a long time
-	if (depth == maxDepth || difftime(now, startingTime) >= COMPUTING_TIME || !(oldBoard->canMove(player))) {
-		return oldBoard->evaluateBoard(player); 
-	}
+
 	if (oldBoard->fullGame() || (!(oldBoard->canMove(player)) && !(oldBoard->canMove(-player)))) {
 		int score = oldBoard->scoreBoard(player);
 		int score2 = oldBoard->scoreBoard(-player);
@@ -76,6 +74,11 @@ int maxValue(GameBoard* oldBoard, int player, int alpha, int beta, int depth, in
 		else {
 			return -MAX_NUMBER;
 		}
+	}
+
+	//A limit on turns otherwise the starting game takes a long time
+	if (depth == maxDepth || difftime(now, startingTime) >= COMPUTING_TIME || !(oldBoard->canMove(player))) {
+		return oldBoard->evaluateBoard(player);
 	}
 
 	for (int i = 0; i < 8; i++) {

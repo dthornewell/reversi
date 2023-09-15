@@ -540,7 +540,7 @@ void playerVsComputer(int computerNum) {
 				reversi->printBoard();
 				std::cout << "This can take up to " + std::to_string(COMPUTING_TIME) + " seconds, please be patient" << std::endl;
 				
-				if (reversi->makeMinimaxMove(reversi, computerNum)) {
+				if (reversi->makeMonteCarloMove(reversi, computerNum)) {
 					consecutiveSkips = 0;
 				}
 				else {
@@ -641,7 +641,6 @@ int main() {
 			testGame->board[i][j] = -1;
 		}
 	}
-	std::cout << testGame->evaluateBoard(-1);
 	
 	srand((unsigned int)time(NULL));
 	int first = 1 - (2 * (rand() % 2));
