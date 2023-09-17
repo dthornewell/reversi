@@ -419,17 +419,17 @@ int GameBoard::countNeighbors(int x, int y) {
 }
 
 
-void playerVsPlayer(int first) {
+void playerVsPlayer() {
 	GameBoard* reversi = new GameBoard();
-	reversi->playerTurn = first;
+	reversi->playerTurn = 1;
 	int row, col;
 	int consecutiveSkips = 0;
 	while (!reversi->fullGame() && consecutiveSkips < 2) {
-		if (!reversi->canMove(first)) {
+		if (!reversi->canMove(1)) {
 			std::cout << "No moves available" << std::endl;
 			consecutiveSkips++;
 		} else {
-			reversi->showMoves(first);
+			reversi->showMoves(1);
 			reversi->printBoard();
 			consecutiveSkips = 0;
 			while (true) {
@@ -438,7 +438,7 @@ void playerVsPlayer(int first) {
 				std::cout << "Columns (0-7): ";
 				std::cin >> col;
 				reversi->clearBoard();
-				if (!reversi->makeMove(row, col, first)) {
+				if (!reversi->makeMove(row, col, 1)) {
 					std::cout << "Can't go there" << std::endl;
 				}
 				else {
@@ -446,12 +446,12 @@ void playerVsPlayer(int first) {
 				}
 			}
 		}
-		if (!reversi->canMove(-1*first)) {
+		if (!reversi->canMove(-1)) {
 			std::cout << "No moves available" << std::endl;
 			consecutiveSkips++;
 		}
 		else {
-			reversi->showMoves(-1*first);
+			reversi->showMoves(-1);
 			reversi->printBoard();
 			consecutiveSkips = 0;
 			while (true) {
@@ -460,7 +460,7 @@ void playerVsPlayer(int first) {
 				std::cout << "Columns (0-7): ";
 				std::cin >> col;
 				reversi->clearBoard();
-				if (!reversi->makeMove(row, col, -1*first)) {
+				if (!reversi->makeMove(row, col, -1)) {
 					std::cout << "Can't go there" << std::endl;
 				}
 				else {
@@ -586,9 +586,9 @@ void playerVsComputer(int computerNum) {
 	}
 }
 
-void computerVsComputer(int first) {
+void computerVsComputer() {
 	GameBoard* reversi = new GameBoard();
-	reversi->playerTurn = first;
+	reversi->playerTurn = 1;
 	int consecutiveSkips = 0;
 
 	while (!reversi->fullGame() && consecutiveSkips < 2) {
@@ -598,7 +598,7 @@ void computerVsComputer(int first) {
 		else {
 			reversi->printBoard();
 			std::cout << "This can take up to " + std::to_string(COMPUTING_TIME) + " seconds, please be patient" << std::endl;
-			if (reversi->makeMinimaxMove(reversi, first)) {
+			if (reversi->makeMinimaxMove(reversi, 1)) {
 				consecutiveSkips = 0;
 			}
 			else {
@@ -612,7 +612,7 @@ void computerVsComputer(int first) {
 		else {
 			reversi->printBoard();
 			std::cout << "This can take up to " + std::to_string(COMPUTING_TIME) + " seconds, please be patient" << std::endl;
-				if (reversi->makeMonteCarloMove(reversi, -first)) {
+				if (reversi->makeMonteCarloMove(reversi, -1)) {
 				consecutiveSkips = 0;
 			}
 			else {
@@ -648,13 +648,13 @@ int main() {
 	int answer;
 	std::cin >> answer;
 	if (answer == 2) {
-		playerVsPlayer(first);
+		playerVsPlayer();
 	}
 	else if (answer == 1) {
 		playerVsComputer(first);
 	}
 	else if (answer == 0) {
-		computerVsComputer(first);
+		computerVsComputer();
 	}
 }
 
