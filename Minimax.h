@@ -22,10 +22,6 @@ public:
 	void join();
 };
 
-void tmaxValue(GameBoard* b, int player, int alpha, int beta, int depth, int maxDepth, time_t start, int* result);
-
-int minValue(GameBoard* oldBoard, int player, int alpha, int beta, int depth, int maxDepth, time_t startingTime);
-int maxValue(GameBoard* oldBoard, int player, int alpha, int beta, int depth, int maxDepth, time_t startingTime);
-std::pair<int, int> minimax(GameBoard* game, int player);
-
-
+std::pair<int, int>minimax2(GameBoard* game, int player);
+int minimize(GameBoard* oldBoard, int player, int alpha, int beta, int maxDepth, time_t startingTime);
+int maximize(GameBoard* oldBoard, int player, int alpha, int beta, int maxDepth, time_t startingTime);

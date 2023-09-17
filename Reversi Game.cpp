@@ -384,7 +384,7 @@ int GameBoard::stablePieces(int player, int row, int col) {
 }
 
 bool GameBoard::makeMinimaxMove(GameBoard* game, int player) {
-	std::pair<int, int> temp = minimax(game, player);
+	std::pair<int, int> temp = minimax2(game, player);
 	if (temp.first != -1 && temp.second != -1) {
 		if (game->makeMove(temp.first, temp.second, player))
 			return true;
@@ -540,7 +540,7 @@ void playerVsComputer(int computerNum) {
 				reversi->printBoard();
 				std::cout << "This can take up to " + std::to_string(COMPUTING_TIME) + " seconds, please be patient" << std::endl;
 				
-				if (reversi->makeMonteCarloMove(reversi, computerNum)) {
+				if (reversi->makeMinimaxMove(reversi, computerNum)) {
 					consecutiveSkips = 0;
 				}
 				else {
